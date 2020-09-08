@@ -33,9 +33,13 @@ class Window(Frame):
         image.add_command(label='Show Image', command=self.show_img)
         image.add_command(label='Close Image', command=self.close_img)
 
+        text = Menu(our_menu)  # image is a Sub Menu
+        text.add_command(label='Show Text', command=self.show_txt)
+        text.add_command(label='Close Text', command=self.close_txt)
+
         edit = Menu(our_menu)
         edit.add_cascade(label="Image", menu=image)  # Image is in edit Menu
-        edit.add_command(label='Show Text', command=self.show_txt)
+        edit.add_cascade(label="Text", menu=text)  # Text is in edit Menu
         edit.add_command(label='Undo', command=self.menu_edit_undo)
         edit.add_command(label='Dummy1', command=self.f_dummy)
         edit.add_command(label='Dummy2', command=self.f_dummy)
@@ -100,8 +104,16 @@ class Window(Frame):
 
     # Dummy print function to test function call
     def show_txt(self):
+        global s_text
         print("In ShowTxt")
         self.children['!label']["text"] = "In Show_txt"
+        s_text = Label(self, text="Hey There... How are you?")
+        s_text.pack()
+        s_text.place(in_=self, relx = .5, rely = .5, x=-160)
+
+    def close_txt(self):
+        global s_text
+        s_text.destroy()
 
     # Dummy print function to test function call
     def f_dummy(self):
@@ -110,7 +122,7 @@ class Window(Frame):
 
 
 root = Tk()
-root.geometry("400x300")
+root.geometry("600x450")
 
 app = Window(root)
 

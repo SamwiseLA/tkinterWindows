@@ -1,4 +1,5 @@
 from tkinter import *
+from PIL import Image, ImageTk
 
 
 class Window(Frame):
@@ -21,15 +22,24 @@ class Window(Frame):
 
         # Menu add 1 Item to "File" header
         file = Menu(our_menu)
+        file.add_command(label='Save', command=self.f_dummy)
         file.add_command(label='Exit', command=self.client_exit)
         our_menu.add_cascade(label='File', menu=file)
 
-        # Menu add 2 Items "Edit" header
+        # Menu add Multi Items "Edit" header
         # They will appear in the order they were added IE: Undo, then Dummy1, then Dummy2
+
+        image = Menu(our_menu)  # image is a Sub Menu
+        image.add_command(label='Show Image', command=self.show_img)
+        image.add_command(label='Close Image', command=self.close_img)
+
         edit = Menu(our_menu)
+        edit.add_cascade(label="Image", menu=image)  # Image is in edit Menu
+        edit.add_command(label='Show Text', command=self.show_txt)
         edit.add_command(label='Undo', command=self.menu_edit_undo)
         edit.add_command(label='Dummy1', command=self.f_dummy)
         edit.add_command(label='Dummy2', command=self.f_dummy)
+
         our_menu.add_cascade(label='Edit', menu=edit)
 
         # Add a few extra Buttons
@@ -53,7 +63,6 @@ class Window(Frame):
         print("Menu->Edit->Undo")
         self.children['!label']["text"] = "Menu->Edit->Undo"
 
-
     def quit_btn(self):
         self.children['!label']["text"] = "Please use menu File->Exit"
 
@@ -70,10 +79,35 @@ class Window(Frame):
         old_value = self.children['!label']["text"]
         self.children['!label']["text"] = obj.upper()
 
+    # Show Image
+    def show_img(self):
+        global label_img
+        print("In ShowImg")
+        self.children['!label']["text"] = "In Show Image"
+        load = Image.open("SamwiseBurningMan2017.jpg")
+        # load.resize((200, 300), Image.ANTIALIAS)
+        load.thumbnail((255, 255), Image.ANTIALIAS)
+
+        render = ImageTk.PhotoImage(load)
+        label_img = Label(self, image=render)
+        label_img.image = render
+        label_1 = self.children['!label']
+        label_img.place(in_=label_1, relx=0, rely=1)
+
+    def close_img(self):
+        global label_img
+        label_img.destroy()
+
+    # Dummy print function to test function call
+    def show_txt(self):
+        print("In ShowTxt")
+        self.children['!label']["text"] = "In Show_txt"
+
     # Dummy print function to test function call
     def f_dummy(self):
         print("Dummy Call for Test")
         self.children['!label']["text"] = "Dummy Call for Test"
+
 
 root = Tk()
 root.geometry("400x300")

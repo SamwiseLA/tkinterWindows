@@ -21,8 +21,10 @@ class Window(Frame):
         button_2.place(in_=button_1, relx=0, rely=1, y=3)
         button_2.id = "btn2"
 
-        field_1 = Label(self, text="xyz", width=10, height=1, bg="lightgray", anchor='center')
-        field_1.place(in_=button_1, relx=1, rely=0, x=5)  # Place field1 relx right + 5 to button_1
+        Label_1 = Label(self, text="xyz", width=10, height=1, bg="lightgray", anchor='center')
+        Label_1.place(in_=button_1, relx=1, rely=0, x=5)  # Place field1 relx right + 5 to button_1
+
+
 
     def client_exit(self):
         print("In client_exit Method")

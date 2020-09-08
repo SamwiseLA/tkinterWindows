@@ -18,13 +18,11 @@ class Window(Frame):
         button_1.place(x=0, y=0)
         button_1.id = "btn1"
         button_2 = Button(self, text="2", width=10, height=1, command=self.from_btn2)
-        button_2.place(in_=button_1, relx=0, rely=1, y=3)
+        button_2.place(in_=button_1, relx=0, rely=1, y=3)  # place button_2 rely + 3 to button_1
         button_2.id = "btn2"
 
-        Label_1 = Label(self, text="xyz", width=10, height=1, bg="lightgray", anchor='center')
-        Label_1.place(in_=button_1, relx=1, rely=0, x=5)  # Place field1 relx right + 5 to button_1
-
-
+        label_1 = Label(self, text="xyz", width=10, height=1, bg="lightgray", anchor='center')
+        label_1.place(in_=button_1, relx=1, rely=0, x=5)  # Place field1 relx right + 5 to button_1
 
     def client_exit(self):
         print("In client_exit Method")
